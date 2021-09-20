@@ -6,33 +6,29 @@ import com.sampleprojeto.instituicao.repository.InstituicaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(("/api/v1/instituicoes"))
-public class ListarTodasInstituicoes {
+public class BuscandoInstituicaoPorIdController {
 
     @Autowired
     private InstituicaoRepository repository;
 
-    @GetMapping
-    public ResponseEntity<List<?>> listarTodas(){
+    @GetMapping("/{id}")
+    public ResponseEntity<InstituicaoResponse> buscarPorId(@PathVariable String id){
 
-        List<InstituicaoResponse> instituicoes = new ArrayList<>();
+        Optional<Instituicao> instituicao = repository.findById(id);
 
-        repository.findAll()
-                .stream()
-                .map(instituicao -> instituicoes
-                        .add(new InstituicaoResponse(instituicao.getId(), instituicao.getNome())))
-                .toArray();
+        InstituicaoResponse response =
+                new InstituicaoResponse(instituicao.get().getId(), instituicao.get().getNome());
 
-
-        return ResponseEntity.ok().body(instituicoes);
-
+        return ResponseEntity.ok().body(response);
     }
+
 
 }
