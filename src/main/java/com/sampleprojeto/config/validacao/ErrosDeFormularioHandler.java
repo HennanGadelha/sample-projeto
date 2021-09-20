@@ -28,7 +28,6 @@ public class ErrosDeFormularioHandler {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
 
         fieldErrors.forEach(e -> {
-
             String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
             ErrosRequest erro = new ErrosRequest(e.getField(), mensagem);
             errosDeFormulario.add(erro);
@@ -36,7 +35,4 @@ public class ErrosDeFormularioHandler {
 
         return errosDeFormulario;
     }
-
-
-
 }
