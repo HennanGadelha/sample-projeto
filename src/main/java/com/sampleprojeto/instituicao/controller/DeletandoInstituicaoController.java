@@ -18,6 +18,7 @@ public class DeletandoInstituicaoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletandoInstituicao(@PathVariable String id){
 
+
         repository.deleteById(id);
         return  ResponseEntity.ok().build();
     }
