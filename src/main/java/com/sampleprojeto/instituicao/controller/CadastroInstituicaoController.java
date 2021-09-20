@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -19,9 +20,9 @@ public class CadastroInstituicaoController {
     @Autowired
     private InstituicaoRepository repository;
 
-    
+
     @PostMapping
-    public ResponseEntity<InstituicaoResponse> cadastrarInstituicao(@RequestBody InstituicaoRequest request){
+    public ResponseEntity<InstituicaoResponse> cadastrarInstituicao(@RequestBody @Valid InstituicaoRequest request){
         Instituicao instituicao = request.toModel();
         repository.save(instituicao);
 
